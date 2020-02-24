@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Sitgo User",
+    "slug": "Sitgo",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "notification": {
+      "icon": "https://vevivo-images-bucket-develop.s3-eu-west-1.amazonaws.com/public/common/logo96Gray.png",
+      "color": "#FFFFFF",
+      "androidMode": "default"
+    },
+    "ios": {
+      "supportsTablet": false ,
+      "bundleIdentifier" : "com.hexagonal.sitgouser" ,
+      "config": {
+        "googleMapsApiKey": "AIzaSyDeUb4yog6mNN-yLPgg_eOoSkCyeqyydlY"
+    }
+    },
+    "android": {
+      "package": "com.hexagonal.sitgouser",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDUwtv5G3CPXGR9l-HC4c1SWEKbS9PTY-A"
+        }
+      }
+    },
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#F5F5F5"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": ""
+  }
+}
