@@ -109,9 +109,11 @@ export default class sidedrawer extends React.Component {
 
                     {/* {this.state.fontLoaded ? (      <Text style={{fontFamily:'opreg' ,color:'white' , marginLeft:20 , marginTop:10, fontSize:20}}>{this.state.username}</Text>) : null }
                */}
-              
-              {this.state.fontLoaded ? (       <Text style={{fontFamily:'opreg' ,color:'black' , marginLeft:20 , marginTop:5, fontSize:15,textAlign:'left'}}>{i18n.t('edit_profile')}</Text>) : null }
-                
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('MYPROFILE')}>
+                    {this.state.fontLoaded ? (       <Text style={{fontFamily:'opreg' ,color:'black' , marginLeft:20 , marginTop:5, fontSize:15,textAlign:'left'}}>{i18n.t('edit_profile')}</Text>) : null }
+             
+              </TouchableOpacity>
+                 
             </ImageBackground>
 
                             <TouchableOpacity

@@ -41,7 +41,8 @@ import mylocation from './screens/mylocation'
 import changelang from './screens/changelang';
 import bus_route from './screens/drawroutes/bus_route';
 import mapviewdecoding from './screens/drawroutes/mapviewdecoding';
-
+import editprofile from './screens/profile/editprofile' 
+import signupnew from './screens/signupnew/signup'
 
 const RootStack = createStackNavigator(
     {
@@ -51,13 +52,13 @@ const RootStack = createStackNavigator(
       OTP : otp  ,
     //  DASH: dashboard ,
      
-     AB : activebookings ,
-     BH : bookinghistory , 
+    // AB : activebookings ,
+     //BH : bookinghistory , 
     // MODAL: testing ,
      CREDITCARD : creditcard ,
      ADDITEM : addingitemsinfl,
      ADDCARD: addcard ,
-     SS: selectseats , 
+     //SS: selectseats , 
      PAYMENT : payment ,
      MAP : currentloc , 
      LOCATEBUS: locatebus ,
@@ -77,6 +78,8 @@ const RootStack = createStackNavigator(
      PREVIOUS_BOOKING : previous_booking ,
      NEW_BOOKING : newbooking ,
      SIDE_DRAWER: leftdrawer ,
+
+     //this is active booking details screen from where user can locate the current location of driver
      CARD_DETAILS : card_details,
 
      MYLOC: mylocation ,
@@ -86,6 +89,9 @@ const RootStack = createStackNavigator(
 
      BUS_ROUTE: bus_route ,
      MAP_DECODING: mapviewdecoding ,
+
+     MYPROFILE: editprofile ,
+     SIGNUPNEW : signupnew 
 
     },
     {

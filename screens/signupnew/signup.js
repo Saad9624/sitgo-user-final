@@ -5,117 +5,15 @@ import { View, StatusBar, TextInput, Animated  ,Image , StyleSheet ,TouchableOpa
 import * as Font from 'expo-font';
 import { ScrollView } from 'react-native-gesture-handler';
 import Loading from 'react-native-whc-loading' ;
-import baseurl from '../components/baseurl' ;
+import baseurl from './../../components/baseurl' ;
 
 import i18n from 'i18n-js';
-import en from './../strings/en.json' ;
-import ur from './../strings/ur.json' ;
+import en from './../../strings/en.json' ;
+import ur from './../../strings/ur.json' ;
 
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
-
-
-class FloatingLabelInput extends Component {
-  state = {
-    isFocused: false,
-    fontLoaded: false,
-    lang:''  ,
-    pushtoken:''
-  };
-
-  componentWillMount() {
-    this._animatedIsFocused = new Animated.Value(this.props.value === '' ? 0 : 1);
-
-    this.getLanguage()
-  }
-
-   async componentDidMount() {
-        await Font.loadAsync({
-          'opreg': require('./../assets/fonts/opreg.ttf'),
-        });
-    
-        this.setState({ fontLoaded: true });
-      }
-
-  handleFocus = () => this.setState({ isFocused: true });
-  handleBlur = () => this.setState({ isFocused: false });
-
-  componentDidUpdate() {
-    Animated.timing(this._animatedIsFocused, {
-      toValue: (this.state.isFocused || this.props.value !== '') ? 1 : 0,
-      duration: 200,
-    }).start();
-  }
-
-
-  async getLanguage(){
-    i18n.fallbacks = true;
-    i18n.translations = {
-      en, ur
-    };
-    
-    const language = await AsyncStorage.getItem('LANG')
-
-    this.setState({
-        lang: language
-    })
-
-    if(language == null){
-        this.setState({
-            lang : 'en'
-        })
-    }
-    else{
-        this.setState({
-            lang : language
-        })
-    }
-    console.log("languafe" , this.state.lang)
-    
-    i18n.locale = this.state.lang; 
-
-    console.log("i8ln" , i18n.locale)
-
-   }
-
-  render() {
-    const { label, ...props } = this.props;
-    const labelStyle = {
-      fontFamily:'opreg' ,
-      position: 'absolute',
-      color:'grey' , 
-      left: 0,
-      top: this._animatedIsFocused.interpolate({
-        inputRange: [0, 1],
-        outputRange: [18, 0],
-      }),
-      fontSize: this._animatedIsFocused.interpolate({
-        inputRange: [0, 1],
-        outputRange: [20, 14],
-      }),
-      color: this._animatedIsFocused.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['#808080', '#000'],
-      }),
-    };
-    return (
-      <View style={{ paddingTop: 18 }}>
-     {this.state.fontLoaded ? (     <Animated.Text style={labelStyle}>
-          {label}
-        </Animated.Text>) : null }
-
-
-    {this.state.fontLoaded ? (     <TextInput
-          {...props}
-          style={{ width:140 ,  height: 26, fontSize: 20, color: '#000',fontFamily:'opreg' }}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          blurOnSubmit
-        /> ) : null }
-      </View>
-    );
-  }
-}
+import { Input } from 'react-native-elements';
 
 export default class signup extends Component {
   
@@ -138,11 +36,11 @@ export default class signup extends Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      'opreg': require('./../assets/fonts/opreg.ttf'),
+      'opreg': require('./../../assets/fonts/opreg.ttf'),
     });
 
     this.setState({ fontLoaded: true });
-    await this.registerForPushNotificationsAsync()
+   // await this.registerForPushNotificationsAsync()
   }
 
   handleTextChange = (newText) => this.setState({ fname: newText });
@@ -282,38 +180,9 @@ export default class signup extends Component {
 }  
 
 
-registerForPushNotificationsAsync = async () =>  {
-  const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 
-  if (status !== 'granted') {
-    alert('No notification permissions!');
-    return;
-  }
 
- 
-  let token = await Notifications.getExpoPushTokenAsync();
-  this.setState({
-    pushtoken:token
-  })
 
-    console.log("token " , token)
-}
-
-sendPushNotificaiton = () => {
-   fetch('https://exp.host/--/api/v2/push/send' ,{
-    method:'POST' ,
-    headers :{
-      Accept:'application/json' ,
-      'Content-Type' : 'application/json'
-    },
-    body:JSON.stringify({
-      to:'ExponentPushToken[5og7W0EAXK5_PQw_saEIcB]' , //// whoever you want to send push notification end by using his token
-      sound:'default' ,
-      title:'Demo',
-      body:'Demo'
-    })
-  })
-}
 
 
   render() {
@@ -328,7 +197,7 @@ sendPushNotificaiton = () => {
       
        <Image 
     style={styles.logo}
-    source={require('./../assets/images/logo/logo.png')}></Image>
+    source={require('./../../assets/images/logo/logo.png')}></Image>
 
 {this.state.fontLoaded ? (      <Text style={styles.hello}>{i18n.t('hello_nice_to_meet_you')}</Text>  ) : null }
            {this.state.fontLoaded ? (                  <Text style={styles.moving}>{i18n.t('keep_moving_with_sitgo')}</Text>   ) : null }
@@ -337,21 +206,22 @@ sendPushNotificaiton = () => {
 
                                         <View style={{flexDirection:'column'}}>
                                                     
-                                        {this.state.fontLoaded ? (        <FloatingLabelInput
+                                        {this.state.fontLoaded ? (        <Input
+                                         placeholder='Firs Name'
                                         style={{fontFamily:'opreg'}}
                                                         label={i18n.t('first_name')}
                                                         value={this.state.fname}
                                                         returnKeyType="next"
                                                         onChangeText={this.handleTextChange}
-                                                        ></FloatingLabelInput>  ) : null }
+                                                        ></Input>  ) : null }
 
-                                                <View
+                                                {/* <View
                                                 style={{
                                                   padding:2 ,
                                                     borderBottomColor: 'black',
                                                     borderBottomWidth: 1,
                                                 }}
-                                                />
+                                                /> */}
 
 
                                         </View>
@@ -359,19 +229,19 @@ sendPushNotificaiton = () => {
 
                                     <View style={{flexDirection:'column'}}>
 
-                                                <FloatingLabelInput
+                                                <Input
                                                 label={i18n.t('Last_name')}
                                                 value={this.state.lname}
                                                 onChangeText={this.handleTextChange1}
                                                 />
 
-                                                <View
+                                                {/* <View
                                                 style={{
                                                   padding:2 ,
                                                     borderBottomColor: 'black',
                                                     borderBottomWidth: 1,
                                                 }}
-                                                />
+                                                /> */}
                                     </View>
 
                                    
@@ -380,7 +250,7 @@ sendPushNotificaiton = () => {
 
                             <View style={{marginTop:30}}>
 
-                                     <FloatingLabelInput
+                                     <Input
                                               style={{width:'100%',paddingRight:100}}
                                             label={i18n.t('email')}
                                             value={this.state.email}
@@ -400,27 +270,22 @@ sendPushNotificaiton = () => {
 
                             <View style={styles.v2}>
 
-                                              <View style={{flexDirection:'column'}}>
+                                              <View style={{flexDirection:'row'}}>
                                                           
                                                           <Text>{i18n.t('mobile_number')}</Text>
 
                                                           {this.state.fontLoaded ? (    <TextInput style={{fontFamily:'opreg' }}
                                                           editable={false}>+92</TextInput>  ) : null }
-                                                    <View
+                                                    {/* <View
                                                       style={{
                                                         width:100 ,
                                                         padding:2 ,
                                                           borderBottomColor: 'black',
                                                           borderBottomWidth: 1,
                                                       }}
-                                                        />
+                                                        /> */}
 
-                                              </View>
-
-
-                                              <View style={{flexDirection:'column' , marginTop:3}}>
-
-                                                      <FloatingLabelInput
+<Input
                                                       maxLength ={11}
                                                       label={i18n.t('mobile_number')}
                                                       keyboardType='numeric'
@@ -428,13 +293,20 @@ sendPushNotificaiton = () => {
                                                       onChangeText={this.handlnumber}
                                                       />
 
-                                                      <View
+                                              </View>
+
+
+                                              <View style={{flexDirection:'column' , marginTop:3}}>
+
+                                                     
+
+                                                      {/* <View
                                                       style={{
                                                         padding:2 ,
                                                           borderBottomColor: 'black',
                                                           borderBottomWidth: 1,
                                                       }}
-                                                        />
+                                                        /> */}
                                               </View>
 
                                              
@@ -445,20 +317,20 @@ sendPushNotificaiton = () => {
 
                                   <View style={{marginTop:30}}>
 
-                                          <FloatingLabelInput
+                                          <Input
                                         secureTextEntry={true}
                                                 label={i18n.t('password')}
                                                 value={this.state.password}
                                                 onChangeText={this.handlepassword}
                                                 />
 
-                                                  <View
+                                                  {/* <View
                                                     style={{
                                                       padding:2 ,
                                                         borderBottomColor: 'black',
                                                         borderBottomWidth: 1,
                                                     }}
-                                                    />
+                                                    /> */}
 
 
                                   </View>
@@ -519,7 +391,6 @@ v1:{
 v2:{
   marginTop:30 ,
   flexDirection:'row' ,
-  justifyContent:'space-between'
 },
 tocentertext:{ 
   flex:1 ,

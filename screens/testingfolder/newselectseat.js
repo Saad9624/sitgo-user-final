@@ -15,6 +15,8 @@ import en from './../../strings/en.json' ;
 import ur from './../../strings/ur.json' ;
 import si from './../../strings/si.json' ;
 import i18n from 'i18n-js';
+import Toast, {DURATION} from 'react-native-easy-toast'
+
 
 export default class newselectseat extends React.Component {
 
@@ -563,6 +565,7 @@ async componentDidMount() {
   }
 
   check_the_counr_of_seats  = async () => {
+
     this.setState({
       visibleModal: null
     })
@@ -645,7 +648,6 @@ async componentDidMount() {
         arr.push("6d")
       }
   
-  
       if(this.state.seven_a_image == true && this.state.touch7a == false){
         arr.push("7a")
       }
@@ -671,13 +673,19 @@ async componentDidMount() {
       if(this.state.eight_d_image == true && this.state.touch8d == false ){
         arr.push("8d")
       }
-  
-      this.props.navigation.navigate('BOOKING_DETAILS' ,{
-        SEATS_NAME : arr ,
-        SEAT_COUNT : arr.length ,
-        PRICE: this.state.seatprice
-      })
-  
+
+      if(arr.length > 2) {
+        this.refs.toast.show("You cannot book more than two(2) seats", 500, () => {
+          // something you want to do at close
+       });
+      } 
+      else{
+        this.props.navigation.navigate('BOOKING_DETAILS' ,{
+          SEATS_NAME : arr ,
+          SEAT_COUNT : arr.length ,
+          PRICE: this.state.seatprice
+        })
+      }
   
       console.log(arr)
       console.log("seat length" ,arr.length)
@@ -1888,7 +1896,7 @@ async componentDidMount() {
                                     {this._renderModalContent()}
           
                                  </Modal>
-                         
+                      <Toast ref="toast"/>   
         </View>
 
         

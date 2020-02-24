@@ -34,8 +34,9 @@ export default class currentloc extends React.Component {
             lang:'' ,
             visible : false ,
             destination:'' ,
-            fetching:true 
-
+            fetching:true  ,
+            touch : true
+ 
         
         
         };
@@ -65,31 +66,34 @@ export default class currentloc extends React.Component {
         fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=AIzaSyB-xXKsLmwxC6-pPESRf3hZXzFrD2wHIzk')
         .then((response) => response.json())
         .then((responseJson) => {
-           // console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+            console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
 
+           if(responseJson.results[0]){
+            if(responseJson.results[0].address_components){
+
+              const location2 = responseJson.results[0].address_components[3].long_name ;
+
+              if(location2 == 'Karachi City' || location2 == 'Karachi' ){
+                this.get_all_stop_call('Karachi')
+              }
+
+              else if(location2 == 'Hyderabad City' || location2 == 'Hyderabad'){
+                this.get_all_stop_call('Hyderabad')
+              }
+              else{
+                this.get_all_stop_call('Karachi')
+              }
+
+              this.setState({
+                destination:location2
+              })
+
+              console.log('location2' , location2)
+     }
+           }
            
 
-           if(responseJson.results[0].address_components){
-
-                    const location2 = responseJson.results[0].address_components[3].long_name ;
-
-                    if(location2 == 'Karachi City' || location2 == 'Karachi' ){
-                      this.get_all_stop_call('Karachi')
-                    }
-
-                    else if(location == 'Hyderabad City' || location2 == 'Hyderabad'){
-                      this.get_all_stop_call('Hyderabad')
-                    }
-                    else{
-                      this.get_all_stop_call('Karachi')
-                    }
-
-                    this.setState({
-                      destination:location2
-                    })
-
-                    console.log('location2' , location2)
-           }
+           
 
 
            else {
@@ -160,11 +164,21 @@ export default class currentloc extends React.Component {
         this.setState({ fontLoaded: true });
 
         console.log("did mount latitud" , this.state.latitude )  
+
+        if(this.state.latitude){
+          this.timeoutHandle = setTimeout(()=>{
+            console.log("after 5 seconds")
+            this.getcurrentLocation(this.state.latitude, this.state.longitude)
+       }, 5000);
+        }
+        else{
+          this.timeoutHandle = setTimeout(()=>{
+            console.log("after 5 seconds")
+            this.getcurrentLocation(this.state.latitude, this.state.longitude)
+       }, 5000);
+        }
       
-        this.timeoutHandle = setTimeout(()=>{
-          console.log("after 5 seconds")
-          this.getcurrentLocation(this.state.latitude, this.state.longitude)
-     }, 5000);
+      
       }
       componentWillUnmount(){
         clearTimeout(this.timeoutHandle); 
@@ -307,6 +321,7 @@ export default class currentloc extends React.Component {
               <View style={{flex:1}}>
                                 <View style={{flexDirection:'row' , marginTop:20 , height:60}}>
                                         <TouchableOpacity
+                                       
                                                 onPress={() => this.props.navigation.openDrawer()}>
                                                                             <Image source={require('./../../assets/images/burger/burger.png')}
                                                                                     style={styles.burger}>
@@ -389,8 +404,8 @@ export default class currentloc extends React.Component {
                                                          initialRegion={{
                                                            latitude ,
                                                            longitude ,
-                                                           latitudeDelta: 0.98,
-                                                           longitudeDelta: 0.98,
+                                                           latitudeDelta: 0.99,
+                                                           longitudeDelta: 0.99,
                                                          }}
                                                        >
                                         
@@ -411,6 +426,7 @@ export default class currentloc extends React.Component {
                                                                   <View style={{flexDirection:'row' }}>
 
                                                                             <TouchableOpacity
+                                                                           
                                                                             onPress={() => this.khitohyd()}
                                                                             style={{backgroundColor:'white' ,padding:10,left:0 , position:'absolute' , marginLeft:20 , flexDirection:'column' , justifyContent:'space-between' , borderColor:'#C62930' , borderWidth:1 , borderRadius:5}}>
                                                                                   {this.state.fontLoaded ? (    <Text style={{alignSelf:'center' , fontSize:15 , fontFamily:'opreg'}}>{i18n.t('karachi')}</Text>) : null }
@@ -421,6 +437,7 @@ export default class currentloc extends React.Component {
                                                                             </TouchableOpacity>
 
                                                                               <TouchableOpacity
+                                                                               
                                                                               onPress={() => this.hydtokarachi()}
                                                                               style={{backgroundColor:'white' ,padding:10,right:0 , position:'absolute' , marginRight:20 , flexDirection:'column' , justifyContent:'space-between' , borderColor:'#103056' , borderWidth:1 , borderRadius:5}}>
 
@@ -453,7 +470,8 @@ return(
 
                                     <View style={{flexDirection:'row' , marginTop:20 , height:60}}>
                                                                       <TouchableOpacity
-                                                                      onPress={() => this.props.navigation.openDrawer()}>
+                                                                      //onPress={() => this.props.navigation.openDrawer()}  
+                                                                      >
                                                                             <Image source={require('./../../assets/images/burger/burger.png')}
                                                                                     style={styles.burger}>
                     
@@ -468,7 +486,7 @@ return(
                     <View style={{alignItems:'center' , alignContent:'center' , justifyContent:'center',flex:1}}>
 
                               <Text style={{alignSelf:'center', marginTop:30 ,fontSize:20,color:'red'}}>Finding Bus stops...</Text>
-                              <ActivityIndicator size="large" color="#0000ff" />
+                              <ActivityIndicator size="large" color="red" style={{marginTop:20}} />
                     </View>
                   
                              <View style={{ marginBottom:120 ,justifyContent:'center'  }}>
@@ -478,7 +496,7 @@ return(
                                                   <View style={{flexDirection:'row' }}>
 
                                                             <TouchableOpacity
-                                                            onPress={() => this.khitohyd()}
+                                                           // onPress={() => this.khitohyd()}
                                                             style={{backgroundColor:'white' ,padding:10,left:0 , position:'absolute' , marginLeft:20 , flexDirection:'column' , justifyContent:'space-between' , borderColor:'#C62930' , borderWidth:1 , borderRadius:5}}>
                                                                   {this.state.fontLoaded ? (    <Text style={{alignSelf:'center' , fontSize:15 , fontFamily:'opreg'}}>{i18n.t('karachi')}</Text>) : null }
                                                                   {this.state.fontLoaded ? (    <Text style={{alignSelf:'center' , fontSize:15 , fontFamily:'opreg'}}>{i18n.t('say')}</Text>) : null }
@@ -488,7 +506,7 @@ return(
                                                             </TouchableOpacity>
 
                                                               <TouchableOpacity
-                                                              onPress={() => this.hydtokarachi()}
+                                                             // onPress={() => this.hydtokarachi()}
                                                               style={{backgroundColor:'white' ,padding:10,right:0 , position:'absolute' , marginRight:20 , flexDirection:'column' , justifyContent:'space-between' , borderColor:'#103056' , borderWidth:1 , borderRadius:5}}>
 
                                                                 

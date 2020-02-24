@@ -381,22 +381,46 @@ export default class hydtokhi_stops extends React.Component {
                                             keyExtractor={(item,index)=>index}
                                             renderItem={({item}) =>
                                             ( 
-                                                
-                                                <TouchableOpacity style={{margin:5 , width:100 }}
-                                                onPress={() => this.onPress1(item)}
-                                                >
-                                            
-                                                                            <View style={{padding:10 , alignSelf:'center' ,margin:10 ,
-                                                                             borderColor:'#103056' , borderWidth:1 , borderRadius:5     }}>
+                                              <TouchableOpacity style={{margin:5 , width:100 }}
+                                              onPress={() => this.onPress2(item)}
+                                              >
+                                            <ScrollView >
+                                                                          <View style={{padding:10 , alignSelf:'center' ,margin:10 ,
+                                                                           borderColor:'#103056' , backgroundColor:'#103056' , borderWidth:1 , borderRadius:5     }}>
 
-                                                                                    {this.state.fontLoaded ? (    
-                                                                                          <Text
-                                                                                            
-                                                                                                   style={{fontSize:15 , fontFamily:'opreg' , width:60 , height:40,color:'#103056'}}>{item.stopname}</Text> 
-                                                                                                   ) : null }
-                                                                            </View>
+                                                                                
+                                                                                  {this.state.fontLoaded ? (    
+                                                                                      <Text
+                                                                                          
+                                                                                                 style={{fontSize:15 , fontFamily:'opreg' , width:60 , height:40 , color:'white'}}>{item.stopname}</Text> 
+                                                                                                 ) : null }
+
+
                                                                                   
-                                        </TouchableOpacity> 
+
+                                                                                 {/* <Text style={{fontSize:15}} >{item.stopname}</Text> */}
+                                                                               
+                                                                          </View>
+                                                                          </ScrollView>
+                                                                                
+                                      </TouchableOpacity> 
+
+                                                
+                                        //         <TouchableOpacity style={{margin:5 , width:100 }}
+                                        //         onPress={() => this.onPress1(item)}
+                                        //         >
+                                            
+                                        //                                     <View style={{padding:10 , alignSelf:'center' ,margin:10 ,
+                                        //                                      borderColor:'#103056' , borderWidth:1 , borderRadius:5     }}>
+
+                                        //                                             {this.state.fontLoaded ? (    
+                                        //                                                   <Text
+                                                                                            
+                                        //                                                            style={{fontSize:15 , fontFamily:'opreg' , width:60 , height:40,color:'#103056'}}>{item.stopname}</Text> 
+                                        //                                                            ) : null }
+                                        //                                     </View>
+                                                                                  
+                                        // </TouchableOpacity> 
                                         )}
                                         numColumns={3}
                                             keyExtractor={(item, index) => index.toString()}
@@ -424,30 +448,45 @@ export default class hydtokhi_stops extends React.Component {
                                             keyExtractor={(item,index)=>index}
                                             renderItem={({item}) =>
                                             ( 
+                                              <TouchableOpacity style={{margin:5 , width:100 }}
+                                              onPress={() => this.onPress1(item)}
+                                              >
+                                          
+                                                                          <View style={{padding:10 , alignSelf:'center' ,margin:10 ,
+                                                                           borderColor:'#C62930' , backgroundColor:'#C62930' , borderWidth:1 , borderRadius:5     }}>
+
+                                                                                  {this.state.fontLoaded ? (    
+                                                                                        <Text
+                                                                                          
+                                                                                                 style={{fontSize:15 , fontFamily:'opreg' , width:60 , height:40 ,color:'white'}}>{item.stopname}</Text> 
+                                                                                                 ) : null }
+                                                                          </View>
+                                                                                
+                                      </TouchableOpacity> 
                                                 
-                                                <TouchableOpacity style={{margin:5 , width:100 }}
-                                                onPress={() => this.onPress2(item)}
-                                                >
-                                              <ScrollView >
-                                                                            <View style={{padding:10 , alignSelf:'center' ,margin:10 ,
-                                                                             borderColor:'#C62930' , borderWidth:1 , borderRadius:5     }}>
+                                        //         <TouchableOpacity style={{margin:5 , width:100 }}
+                                        //         onPress={() => this.onPress2(item)}
+                                        //         >
+                                        //       <ScrollView >
+                                        //                                     <View style={{padding:10 , alignSelf:'center' ,margin:10 ,
+                                        //                                      borderColor:'#C62930' , borderWidth:1 , borderRadius:5     }}>
 
                                                                                   
-                                                                                    {this.state.fontLoaded ? (    
-                                                                                        <Text
+                                        //                                             {this.state.fontLoaded ? (    
+                                        //                                                 <Text
                                                                                             
-                                                                                                   style={{fontSize:15 , fontFamily:'opreg' , width:60 , height:40,color:'#C62930'}}>{item.stopname}</Text> 
-                                                                                                   ) : null }
+                                        //                                                            style={{fontSize:15 , fontFamily:'opreg' , width:60 , height:40,color:'#C62930'}}>{item.stopname}</Text> 
+                                        //                                                            ) : null }
 
 
                                                                                     
 
-                                                                                   {/* <Text style={{fontSize:15}} >{item.stopname}</Text> */}
+                                        //                                            {/* <Text style={{fontSize:15}} >{item.stopname}</Text> */}
                                                                                  
-                                                                            </View>
-                                                                            </ScrollView>
+                                        //                                     </View>
+                                        //                                     </ScrollView>
                                                                                   
-                                        </TouchableOpacity> 
+                                        // </TouchableOpacity> 
                                         )}
                                         numColumns={3}
                                             keyExtractor={(item, index) => index.toString()}
@@ -458,16 +497,18 @@ export default class hydtokhi_stops extends React.Component {
                </View>
 
                                                    <View  style={{flexDirection:"row" , justifyContent:'space-between' , marginLeft:20 , marginRight:20 , marginTop:30 }}>
-                                                   {this.state.fontLoaded ? (      <Text style={{fontSize:10 , width:80 , fontFamily:'opreg',height:40}}>{this.state.fromname}</Text>  ) : null }
-                                                          
+                                                   {this.state.fontLoaded ? (    <Text style={{fontSize:10 , width:80, fontFamily:'opreg',height:40}}>{this.state.tostopname}</Text>  ) : null }
+                                                   
                                                    <TouchableOpacity
-                        onPress={() => this.gotoSelectSeatscreen()}
-                          style={{alignSelf:'center' , borderColor:'#103056', backgroundColor:'#103056' , borderWidth:1 , borderRadius:5 , width:100 ,}} >
-                   {this.state.fontLoaded ? (        <Text style={{padding:10 , fontSize:15 , color:'white' , alignSelf:'center' , fontFamily:'opreg'}} >{i18n.t('next')}</Text>) : null }
-                      </TouchableOpacity>
+                                                                onPress={() => this.gotoSelectSeatscreen()}
+                                                                  style={{alignSelf:'center' , borderColor:'#103056', backgroundColor:'#103056' , borderWidth:1 , borderRadius:5 , width:100 ,}} >
+                                                          {this.state.fontLoaded ? (        <Text style={{padding:10 , fontSize:15 , color:'white' , alignSelf:'center' , fontFamily:'opreg'}} >{i18n.t('next')}</Text>) : null }
+                                                              </TouchableOpacity>
 
                                                           
-                                                            {this.state.fontLoaded ? (    <Text style={{fontSize:10 , width:80, fontFamily:'opreg',height:40}}>{this.state.tostopname}</Text>  ) : null }
+                                                              {this.state.fontLoaded ? (      <Text style={{fontSize:10 , width:80 , fontFamily:'opreg',height:40}}>{this.state.fromname}</Text>  ) : null }
+                                                  
+                                                   
                                                      </View>   
                                
                               
@@ -486,8 +527,8 @@ const styles = StyleSheet.create({
       backgroundColor:'#F5F5F5'
   } ,
   statusBarBackground: {
-      height: (Platform.OS === 'ios') ? 18 : 0,
-      backgroundColor: "#FF4500",
+      height: (Platform.OS === 'ios') ? 0 : 0,
+      backgroundColor: "#FFFFFF",
     },
  burger:{ 
   marginTop:20 ,

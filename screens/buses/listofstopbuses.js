@@ -11,6 +11,8 @@ import en from './../../strings/en.json' ;
 import ur from './../../strings/ur.json' ;
 import si from './../../strings/si.json' ;
 import i18n from 'i18n-js';
+import CalendarStrip from 'react-native-calendar-strip';
+import Moment from 'moment';
 
 export default class listofstopbuses extends React.Component{
     static navigationOptions ={
@@ -24,104 +26,27 @@ export default class listofstopbuses extends React.Component{
         nobus: false ,
         selecteddate :'' ,
         month:'' ,
-        lang:'' 
+        lang:''  ,
+        today:1,
+        from_id:''
       };
 
       componentWillMount(){
         const fromid = this.props.navigation.state.params.STOPID 
+        this.setState({
+              from_id :fromid
+        })
         const tostopid = this.props.navigation.state.params.TOSTOPID 
         console.log("from_stopid" , fromid)
         console.log("tostopid" , tostopid)
-        this.get_AllStop_Buses_List(fromid)
+        
         this.getCuurentmonth()
         this.getLanguage()
         
       }
 
 
-      getCuurentmonth(){
-            var d = new Date();
-            var n = d.getMonth(); 
-            if(n == 0){
-                  this.setState({
-                        month:'January'
-                  })
-
-            }  
-            else if(n == 1){
-                  this.setState({
-                        month:'February'
-                  })
-
-            }  
-
-            else if(n == 2){
-                  this.setState({
-                        month:'March'
-                  })
-
-            }  
-            else  if(n == 3){
-                   this.setState({
-                        month:'April'
-                  })
-
-            }  
-            else  if(n == 4){
-                  this.setState({
-                       month:'May'
-                 })
-
-           }  
-           else  if(n == 5){
-            this.setState({
-                 month:'June'
-           })
-
-            }  
-            else  if(n == 6){             
-                  this.setState({
-                  month:'July'
-            })
-
-            }  
-            else  if(n == 7){             
-                  this.setState({
-                  month:'August'
-            })
-
-            }  
-            else  if(n == 8){             
-                  this.setState({
-                  month:'September'
-            })
-
-            }  
-            else  if(n == 9){             
-                  this.setState({
-                  month:'October'
-            })
-
-            }  
-            else  if(n == 10){             
-                  this.setState({
-                  month:'November'
-            })
-
-            }  
-            else if(n == 11){             
-                        this.setState({
-                        month:'December'
-                  })
-
-            }  
-            else{
-                              
-                        this.setState({
-                        month:'N/A'
-                  })   
-            }
-      }
+    
 
       async getLanguage(){
             i18n.fallbacks = true;
@@ -148,6 +73,7 @@ export default class listofstopbuses extends React.Component{
             console.log("languafe" , this.state.lang)
              i18n.locale = this.state.lang; 
              console.log("i8ln" , i18n.locale)
+             this.get_AllStop_Buses_List(this.state.from_id , this.state.lang)
         
            }
         
@@ -223,13 +149,22 @@ export default class listofstopbuses extends React.Component{
       }
 
       onPress1= (num) => {
-
-            console.log("date" , num)
+           const converteddate = Moment(num).format("DD-MM-YYYY")
+            console.log("date22" , converteddate)
             this.setState({
-                  selecteddate : num
+                  selecteddate : converteddate
             })
       }
       
+      getCuurentmonth= () =>{
+            date = new Date()
+            const converteddate = Moment(date).format("DD-MM-YYYY")
+            console.log("date11" , converteddate.toString())
+            this.setState({
+                  today: date ,
+                  selecteddate : converteddate
+            })
+      }
       
 
    
@@ -258,298 +193,25 @@ export default class listofstopbuses extends React.Component{
                                                         </View>
                               </View>
 
-                              <View style={{color:'white' , width:'100%' , backgroundColor:'#103056' , marginTop:5 ,padding:15, alignSelf:'center'}}>
-            <Text style={{alignSelf:'center' , color:'white'}}>{this.state.month}</Text>
-          </View>
-
-          <View style={{height:70 , backgroundColor:'#103056'}}>
-                          <ScrollView  style={{backgroundColor:'#103056' , height:70 , marginLeft:20 , marginRight:20}}
-                          horizontal
-                          >
-
-                              <TouchableOpacity
-                              onPress={() => this.onPress1("1" +"-" + this.state.month) }
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center' , color:'white'}}>1</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center' , color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                 onPress={() => this.onPress1("2" +"-" + this.state.month) }
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>2</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                    onPress={() => this.onPress1("3" +"-" + this.state.month) } style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>3</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                 onPress={() => this.onPress1("4" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>4</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("5" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>5</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("6" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>6</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("7" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>7</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("8" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>8</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("9" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>9</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("10" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>10</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity 
-                                   onPress={() => this.onPress1("11" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>11</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity 
-                                   onPress={() => this.onPress1("12" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>12</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("13" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>13</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("14" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>14</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("15" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>15</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity 
-                                   onPress={() => this.onPress1("16" +"-" + this.state.month )}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>16</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("17"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>17</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("18"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>18</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("19"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>19</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity 
-                                   onPress={() => this.onPress1("20"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>20</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("21"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>21</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("22" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>22</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("23" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>23</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("24" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>24</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("25"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>25</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity 
-                                   onPress={() => this.onPress1("26"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>26</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("27"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>27</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("28"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>28</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity 
-                                   onPress={() => this.onPress1("29"  +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>29</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity 
-                                   onPress={() => this.onPress1("30" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                              <Text style={{alignSelf:'center', color:'white'}}>30</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Tue</Text>
-
-
-                              </TouchableOpacity>
-
-                              <TouchableOpacity
-                                   onPress={() => this.onPress1("31" +"-" + this.state.month)}
-                              style={{flexDirection:'column' , margin:5}}>
-                                    <Text style={{alignSelf:'center', color:'white'}}>31</Text>
-                                    <Text style={{fontSize:10 , alignSelf:'center', color:'white'}}>Mon</Text>
-
-
-                              </TouchableOpacity>
-
-                            
-                          </ScrollView>
-
-
-          </View>
+            
+
+          <CalendarStrip
+                           minDate={this.state.today}
+                          onDateSelected={(date) => this.onPress1(date)}
+                    calendarAnimation={{type: 'sequence', duration: 30}}
+                    daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
+                    style={{height: 100, paddingTop: 20, paddingBottom: 10}}
+                    calendarHeaderStyle={{color: 'white'}}
+                    calendarColor={'#103056'}
+                    dateNumberStyle={{color: 'white'}}
+                    dateNameStyle={{color: 'white'}}
+                    highlightDateNumberStyle={{color: 'white'}}
+                    highlightDateNameStyle={{color: 'white'}}
+                    disabledDateNameStyle={{color: 'grey'}}
+                    disabledDateNumberStyle={{color: 'grey'}}
+                  
+                    iconContainer={{flex: 0.1}}
+                />
 
 
 

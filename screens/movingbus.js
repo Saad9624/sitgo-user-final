@@ -30,7 +30,8 @@ export default class movingbus extends React.Component {
      DATE:'' ,
      mylat : 0 ,
      mylong:0 ,
-     USERID:''
+     USERID:'' ,
+     message:'Loading...'
     }
 
     constructor(props){
@@ -120,6 +121,7 @@ export default class movingbus extends React.Component {
             else{
               
                 this.get_updated_data()
+                
             }
         
           });
@@ -210,6 +212,7 @@ export default class movingbus extends React.Component {
                                 longitude : parseFloat(result.lang) ,
                                 latitude : parseFloat(result.lat)
                         })
+                        this.forceUpdate()
                       console.log("lang" , result.lang)
                       console.log("lat" , result.lat)
                      
@@ -222,7 +225,9 @@ export default class movingbus extends React.Component {
                     }
                     else{
                     
-                     // alert(responseJson.message)
+                     this.setState({
+                      message : responseJson.message
+                     })
                     }
                 })
                 .catch((error) => {
@@ -324,7 +329,7 @@ getlocation=()=> {
         </View>
       
       )
-    }
+   }
     else{
       return(
                 <View>
@@ -342,7 +347,7 @@ getlocation=()=> {
                                       
                                             </View>
                                               <View style={{justifyContent:'center' , alignItems:'center'}}>
-                                                    <Text style={{fontSize:20,marginTop:50}}>Trip Completed</Text>
+                                                    <Text style={{fontSize:20,marginTop:50}}>{this.state.message}</Text>
                                               </View> 
                 </View>
       )

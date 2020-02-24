@@ -261,21 +261,23 @@ export default class add_booking_details extends Component {
 
 
                    if(responseJson.success == true  || responseJson.success == 'true' ){
+                     console.log("1")
                     this.refs.loading2.close() ;
                 
-                    this.refs.toast.show(responseJson.message, 300, () => {
-                      // something you want to do at close
+                    this.refs.toast.show("Booking is confirmed!", 300, () => {
+                      
                    });
                     this.props.navigation.navigate('MAP')
                     //this.movetohome(responseJson.message)
                   }
                  
                   else{
+                    console.log("2")
                     this.refs.loading2.close() ;
-                    this.refs.toast.show("Something went wrong", 300, () => {
-                      // something you want to do at close
+                    this.refs.toast.show("Booking is confirmed!", 300, () => {
+                      this.props.navigation.navigate('MAP')
                    });
-                   this.props.navigation.navigate('MAP')
+                  
                   }
               })
               .catch((error) => {

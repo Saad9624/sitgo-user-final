@@ -486,7 +486,9 @@ export default class stoplist extends React.Component {
                                                    
                                                    
                                                    <View  style={{flexDirection:"row" , justifyContent:'space-between' , marginLeft:20 , marginRight:20, marginTop:30  }}>
-                                                                        {this.state.fontLoaded ? (      <Text style={{fontSize:10 , width:80 , fontFamily:'opreg',height:40}}>{this.state.fromname}</Text>  ) : null }
+                                                                      
+                                                                         {this.state.fontLoaded ? (      <Text style={{fontSize:10 , width:80 , fontFamily:'opreg',height:40}}>{this.state.fromname}</Text>  ) : null }
+                                                                       
                                                           
                                                                          <TouchableOpacity
                                                                                 onPress={() => this.gotoSelectSeatscreen()}
@@ -494,10 +496,9 @@ export default class stoplist extends React.Component {
                                                                                   {this.state.fontLoaded ? (        <Text style={{padding:10 , fontSize:15 , color:'grey' , alignSelf:'center' , fontFamily:'opreg'}} >{i18n.t('next')}</Text>) : null }
                                                                             
                                                                           </TouchableOpacity>
-
-                                                                  
-                                                                        {this.state.fontLoaded ? (    <Text style={{fontSize:10 , width:80, fontFamily:'opreg',height:40}}>{this.state.tostopname}</Text>  ) : null }
-                                                            
+                                                                          {this.state.fontLoaded ? (    <Text style={{fontSize:10 , width:80, fontFamily:'opreg',height:40}}>{this.state.tostopname}</Text>  ) : null }
+                                                                      
+                                                                          
                                                             
                                                      </View>   
                                

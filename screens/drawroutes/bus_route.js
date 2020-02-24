@@ -177,8 +177,8 @@ componentWillMount(){
   				initialRegion={{
   					latitude: 24.8432148,
   					longitude: 67.0393195,
-  					latitudeDelta: LATITUDE_DELTA,
-  					longitudeDelta: LONGITUDE_DELTA,
+  					latitudeDelta: 0.1,
+  					longitudeDelta: 0.1,
   				}}
   				style={{flex:1}}
   				ref={c => this.mapView = c} // eslint-disable-line react/jsx-no-bind
@@ -196,7 +196,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  						//onReady={this.onReady}
   						onError={this.onError}
   					/>
 
@@ -210,7 +210,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  					//	onReady={this.onReady}
   						onError={this.onError}
   					/>
 
@@ -224,7 +224,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  						//onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 						      {(this.state.coordinates.length === 10) && (
@@ -234,7 +234,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  						//onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 						      {(this.state.coordinates.length === 10) && (
@@ -244,7 +244,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  					//	onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 						
@@ -255,7 +255,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  					//	onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 						
@@ -266,7 +266,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  					//	onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 						
@@ -277,7 +277,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  					//	onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 						      {(this.state.coordinates.length === 10) && (
@@ -287,7 +287,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  					//	onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 						      {(this.state.coordinates.length === 10) && (
@@ -297,7 +297,7 @@ componentWillMount(){
   						apikey={GOOGLE_MAPS_APIKEY}
   						strokeWidth={4}
   						strokeColor="blue"
-  						onReady={this.onReady}
+  					//	onReady={this.onReady}
   						onError={this.onError}
 						/>	)}
 					
