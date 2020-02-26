@@ -48,6 +48,18 @@ import confirm_password from './screens/forgotpassword/confirm_password'
 import verify_otp from './screens/forgotpassword/verifyotp' 
 import updateprofile from './screens/profile/updateprofile' ;
 
+
+const DrawerNavigation =  createDrawerNavigator({
+  MAP : currentloc , 
+ 
+  
+},
+{
+  
+    contentComponent:leftdrawer
+  
+} );
+
 const RootStack = createStackNavigator(
     {
       Home: registration,
@@ -64,7 +76,7 @@ const RootStack = createStackNavigator(
      ADDCARD: addcard ,
      //SS: selectseats , 
      PAYMENT : payment ,
-     MAP : currentloc , 
+    // MAP : currentloc , 
      LOCATEBUS: locatebus ,
      ROUTES: routes ,
      NEWS: news ,
@@ -106,6 +118,13 @@ const RootStack = createStackNavigator(
      CONFIRM_PASSWORD : confirm_password ,
      VERIFY_OTP : verify_otp ,
 
+     DrawerNavigation :  {
+      screen: DrawerNavigation,
+      navigationOptions: {
+        header:null
+      },
+    },  
+
      UPDATEPROFIL : updateprofile 
 
     },
@@ -136,16 +155,7 @@ const RootStack = createStackNavigator(
   // };
 
 
-  const DrawerNavigation =  createDrawerNavigator({
-    Home: RootStack ,
-   
-    
-  },
-  {
-    
-      contentComponent:leftdrawer
-    
-  } );
+
   
 
-  export default createAppContainer(DrawerNavigation);
+  export default createAppContainer(RootStack);
