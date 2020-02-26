@@ -20,23 +20,24 @@ import Toast, {DURATION} from 'react-native-easy-toast'
 
 export default class newselectseat extends React.Component {
 
-    static navigationOptions ={
-        header: null
-    }
-    state = {
-     visibleModal: null,
-     seatprice:'',
-     lang:''
+          static navigationOptions ={
+              header: null
+          }
+
+          state = {
+          visibleModal: null,
+          seatprice:'',
+          lang:''
      
 }
 
 
      async componentWillMount(){
-      await Font.loadAsync({
-        'opreg': require('./../../assets/fonts/opreg.ttf'),
-      });
+          await Font.loadAsync({
+            'opreg': require('./../../assets/fonts/opreg.ttf'),
+          });
   
-      this.setState({ fontLoaded: true });
+          this.setState({ fontLoaded: true });
 
      const bus_id = this.props.navigation.state.params.BUS_ID 
       console.log("bus_id" , bus_id)
@@ -735,7 +736,7 @@ async componentDidMount() {
                   <TouchableOpacity onPress={() => this.check_the_counr_of_seats()}>
                        <Text style={{fontSize:15 , color:'#103056', padding:15,textAlign:'left'}}>{i18n.t('pay_on_arrival')}</Text>
                   </TouchableOpacity>
-
+{/* 
                   <TouchableOpacity
                   onPress={() =>this.check_the_counr_of_seats() }>
                        <Text style={{fontSize:15 , color:'#103056', padding:15,textAlign:'left'}}>{i18n.t('pay_through_credit_card')}</Text>
@@ -745,8 +746,11 @@ async componentDidMount() {
                   onPress={() =>this.check_the_counr_of_seats() }>
                        <Text style={{fontSize:15 , color:'#103056', padding:15,textAlign:'left'}}>{i18n.t('Paywithwallet')}</Text>
                   </TouchableOpacity>
-{/*      
-      {this._renderButton('Close', () => this.setState({ visibleModal: null }))} */}
+{/*       */}
+      
+   
+
+   
     </View>
   );
 

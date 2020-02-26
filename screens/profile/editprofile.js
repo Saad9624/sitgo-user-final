@@ -60,29 +60,27 @@ export default class myprofile extends React.Component {
             lang: language
         })
     
-        if(language == null){
-            this.setState({
-                lang : 'en'
-            })
-        }
-        else{
-            this.setState({
-                lang : language
-            })
-        }
+              if(language == null){
+                    this.setState({
+                        lang : 'en'
+                    })
+                }
+                else{
+                    this.setState({
+                        lang : language
+                    })
+                }
         console.log("languafe" , this.state.lang)
-        
-        i18n.locale = this.state.lang; 
-    
+         i18n.locale = this.state.lang; 
         console.log("i8ln" , i18n.locale)
     
        }
        async _getStorageValue(){
-        var USERNAME = await AsyncStorage.getItem('UN')
-        console.log("username" , USERNAME)
-        this.setState({
-            username : USERNAME
-        })
+              var USERNAME = await AsyncStorage.getItem('UN')
+              console.log("username" , USERNAME)
+              this.setState({
+                  username : USERNAME
+              })
        
       }
 
@@ -146,7 +144,12 @@ export default class myprofile extends React.Component {
                                               
 
                                               
+                                                                <TouchableOpacity onPress={() => this.props.navigation.navigate('UPDATEPROFIL')}
+                                                                 style={{bottom:0 ,position:'absolute' ,marginBottom:50 ,
+                                                                 alignSelf:'center',justifyContent:'center' , alignItems:'center',height:50 ,backgroundColor:'#C62930' , borderWidth:1 , width:200 , borderRadius:5} }>
 
+                                                                  <Text style={{color:'white'}}>Update profile</Text>
+                                                                </TouchableOpacity>
                                                
 
                                                          

@@ -104,6 +104,7 @@
     "urdu" :"اردو" ,
     "sindhi" :"سنڌي" ,
     "bus_route" :"بس رستو",
-    "Paywithwallet" :"پرس ذريعي ادائیگي"
+    "Paywithwallet" :"پرس ذريعي ادائیگي" ,
+    "re-enterpassword" :"Re-Enter Password"
     
 }

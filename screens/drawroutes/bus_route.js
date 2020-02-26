@@ -182,7 +182,7 @@ componentWillMount(){
   				}}
   				style={{flex:1}}
   				ref={c => this.mapView = c} // eslint-disable-line react/jsx-no-bind
-  				onPress={this.onMapPress}
+  			//	onPress={this.onMapPress}
                   loadingEnabled={true}
                  
   			>

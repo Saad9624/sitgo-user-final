@@ -15,7 +15,8 @@ export default class registration extends React.Component {
 
     state = {
         fontLoaded: false,
-        lang:''
+        lang:'' ,
+        value :false
       };
 
       async componentDidMount() {
@@ -27,7 +28,7 @@ export default class registration extends React.Component {
       }
 
       componentWillMount(){
-       
+        this._getStorageValue()
        
           
           
@@ -63,7 +64,7 @@ export default class registration extends React.Component {
 
         console.log("i8ln" , i18n.locale)
 
-         this._getStorageValue()
+        
 
        }
       
@@ -71,58 +72,79 @@ export default class registration extends React.Component {
             var value = await AsyncStorage.getItem('isLoginin')
             console.log("isloginvalue" , value)
             if(value == "yes"){
+                this.setState({
+                    value:true
+                })
                 console.log("under if")
             this.props.navigation.navigate('MAP')
+        }
+        else{
+            this.setState({
+                value:false
+            })
         }
         }
 
     
   render() {
-    return (
-        <View style={styles.parent}> 
-         <StatusBar backgroundColor="blue" barStyle="light-content" />     
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-        
-    <Image 
-   
-    source={require('./../assets/images/logo/logo.png')}></Image>
-
-        {this.state.fontLoaded ? (
-     
-        <Text style={styles.welcome}>Welcome to Sitgo</Text>
-        ) : null }
-         {this.state.fontLoaded ? (
-        <Text style={styles.dummy}>Lorem ipsum dolor sit amet,consectur adip sicing elit,sed do eiusmod tempor inciddunt ut , labore et dolore magna aliqua.</Text>
-        ) : null }
-      
-        </View>
-
-
-      <View style={styles.buttonview}>
-      <TouchableOpacity
-      onPress={() => this.props.navigation.navigate('LOGIN')}
-      style={styles.loginbtn}>
-      <View style={styles.tocenterview}>
-      {this.state.fontLoaded ? (  <Text style={styles.logintext}>LOGIN</Text>  ) : null }
-      </View>
-          
-      </TouchableOpacity>
-
-      <TouchableOpacity
-      onPress={() => this.props.navigation.navigate('SIGNUP')} 
-            style={styles.signupbtn}>
-            <View style={styles.tocenterview}>
-            {this.state.fontLoaded ? ( <Text style={styles.signuptext}>REGISTER</Text>   ) : null }
-            </View>
-          
-      </TouchableOpacity>
-      </View>
-            
-        </View>
-
-      
-    );
+      if(!this.state.value){
+                    return (
+                    
+                        <View style={styles.parent}> 
+                                    <StatusBar backgroundColor="blue" barStyle="light-content" />     
+                                
+                                
+                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                
+                        
+                                                                        <Image 
+                                                                    
+                                                                        source={require('./../assets/images/logo/logo.png')}></Image>
+                
+                                                                            {this.state.fontLoaded ? (
+                                                                        
+                                                                            <Text style={styles.welcome}>Welcome to Sitgo</Text>
+                                                                            ) : null }
+                                                                            {this.state.fontLoaded ? (
+                                                                            <Text style={styles.dummy}>Lorem ipsum dolor sit amet,consectur adip sicing elit,sed do eiusmod tempor inciddunt ut , labore et dolore magna aliqua.</Text>
+                                                                            ) : null }
+                                                                        
+                                                </View>
+                
+                
+                                                                        <View style={styles.buttonview}>
+                                                                        <TouchableOpacity
+                                                                        onPress={() => this.props.navigation.navigate('LOGIN')}
+                                                                        style={styles.loginbtn}>
+                                                                        <View style={styles.tocenterview}>
+                                                                        {this.state.fontLoaded ? (  <Text style={styles.logintext}>LOGIN</Text>  ) : null }
+                                                                        </View>
+                                                                            
+                                                                        </TouchableOpacity>
+                
+                                                                        <TouchableOpacity
+                                                                        onPress={() => this.props.navigation.navigate('SIGNUP')} 
+                                                                                style={styles.signupbtn}>
+                                                                                <View style={styles.tocenterview}>
+                                                                                {this.state.fontLoaded ? ( <Text style={styles.signuptext}>REGISTER</Text>   ) : null }
+                                                                                </View>
+                                                                            
+                                                                        </TouchableOpacity>
+                    </View>
+                            
+                        </View>
+                
+                    
+                    );
+      }
+      else{
+          return(
+              <View style={{justifyContent:'center' ,alignItems:'center' ,flex:1}}>
+                            <Text>Loading..</Text>
+                    </View>
+          )
+      }
+    
   }
 }
 

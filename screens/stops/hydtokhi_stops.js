@@ -166,7 +166,8 @@ export default class hydtokhi_stops extends React.Component {
       }
     
 
-    get_all_stop_call = async ()=> {
+    
+      get_all_stop_call = async ()=> {
         this.setState({
             isLoading:true
           })
@@ -174,11 +175,11 @@ export default class hydtokhi_stops extends React.Component {
         try{
           
 
-          let response = await fetch(`https://sitgoride.com/admin/stops/all?city=Karachi&language=${this.state.lang}`) 
+          let response = await fetch( baseurl.uatbaseurl + `stops/all?city=Karachi&language=${this.state.lang}`) 
 
           const completeresponse =  await response.json()
           var markers = [];
-          console.log("response " , completeresponse)
+          console.log("karachi response " , completeresponse)
           
 
           const khistop = completeresponse.stops
@@ -227,11 +228,11 @@ export default class hydtokhi_stops extends React.Component {
         try{
           
 
-          let response = await fetch(`https://sitgoride.com/admin/stops/all?city=Hyderabad&language=${this.state.lang}`) 
+          let response = await fetch(baseurl.uatbaseurl + `stops/all?city=Hyderabad&language=${this.state.lang}`) 
 
           const completeresponse =  await response.json()
           var markers = [];
-          console.log("response " , completeresponse)
+          console.log("hyderabad response " , completeresponse)
           
           if(completeresponse.errors == true){
             this.setState({

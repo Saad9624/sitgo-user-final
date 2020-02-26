@@ -334,39 +334,55 @@ export default class registration extends React.PureComponent {
 
                             <Text style={styles.hello}>{i18n.t('hello_nice_to_meet_you')}</Text>
                             <Text style={styles.moving}>{i18n.t('keep_moving_with_sitgo')}</Text>
-                            <View   style={styles.et1}>
-                                    <View style={styles.tocentertext}>
-                                        <Text style={{marginRight:20}} >+92</Text>
-                                        <TextInput
-                                        style={{marginLeft:20}}
-                                         maxLength={11}
-                                        keyboardType='numeric'
-                                        value={this.state.number}
-                                        onChangeText={this.handleTextChange}
-                                        placeholder='300-1234567'>
+
+                           
+
+
+                                                    <View   style={styles.et1}>
+                                                            <View style={styles.tocentertext}>
+                                                                <Text style={{marginRight:20}} >+92</Text>
+                                                                <TextInput
+                                                                style={{marginLeft:20}}
+                                                                maxLength={11}
+                                                                keyboardType='numeric'
+                                                                value={this.state.number}
+                                                                onChangeText={this.handleTextChange}
+                                                                placeholder='300-1234567'>
+                                                                    
+                                                                </TextInput>
+                                                              
+                                                            </View>
                                             
-                                        </TextInput>
-                                       
-                                    </View>
-                     
-                            </View>
+                                                    </View>
 
-                            <View style={styles.et1}>
+                                                    <View style={styles.et1}>
 
-                                    <View style={styles.tocentertext}>
-                                            <Text style={{color:'transparent'}}>1877</Text>
-                                            <TextInput
-                                               style={{marginLeft:20}}
-                                            value={this.state.password}
-                                            onChangeText={this.handleTextChange1}
-                                            secureTextEntry={true}
-                                            placeholder={i18n.t('password')}>
-                                                
-                                            </TextInput>
+                                                            <View style={styles.tocentertext}>
+                                                                    <Text style={{color:'transparent'}}>1877</Text>
+                                                                    <TextInput
+                                                                      style={{marginLeft:20}}
+                                                                    value={this.state.password}
+                                                                    onChangeText={this.handleTextChange1}
+                                                                    secureTextEntry={true}
+                                                                    placeholder={i18n.t('password')}>
+                                                                        
+                                                                    </TextInput>
 
-                                           
-                                        </View>
-                            </View>
+                                                                  
+                                                                </View>
+                                                    </View>
+
+                                                    <TouchableOpacity
+                                                      style={{marginRight:20 ,marginTop:10,marginLeft:20}}
+                                                    onPress={() => this.props.navigation.navigate('VERIFY_NUM')}>
+                                                      <Text>Forgot Password?</Text>
+                                                    </TouchableOpacity>
+
+
+
+
+                          
+
 
                             <TouchableOpacity
                         onPress={() => this.checkinternet()}

@@ -43,6 +43,10 @@ import bus_route from './screens/drawroutes/bus_route';
 import mapviewdecoding from './screens/drawroutes/mapviewdecoding';
 import editprofile from './screens/profile/editprofile' 
 import signupnew from './screens/signupnew/signup'
+import verifynumber from './screens/forgotpassword/verifynumber'
+import confirm_password from './screens/forgotpassword/confirm_password'
+import verify_otp from './screens/forgotpassword/verifyotp' 
+import updateprofile from './screens/profile/updateprofile' ;
 
 const RootStack = createStackNavigator(
     {
@@ -67,7 +71,11 @@ const RootStack = createStackNavigator(
      WALLET: wallet ,
      LIST: list , 
      D_NEWS : detailnews ,
+
+     // bus seats new screen
      NEWSELECTSEAT: newselectseat ,
+     
+     
      TFM: testingformarkers  ,
      S_BAR : statusbar ,
      list_of_stop_buses : listofstopbuses ,
@@ -91,7 +99,14 @@ const RootStack = createStackNavigator(
      MAP_DECODING: mapviewdecoding ,
 
      MYPROFILE: editprofile ,
-     SIGNUPNEW : signupnew 
+     SIGNUPNEW : signupnew ,
+
+     //forgot password 
+     VERIFY_NUM : verifynumber  ,
+     CONFIRM_PASSWORD : confirm_password ,
+     VERIFY_OTP : verify_otp ,
+
+     UPDATEPROFIL : updateprofile 
 
     },
     {

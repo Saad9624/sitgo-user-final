@@ -66,21 +66,28 @@ export default class currentloc extends React.Component {
         fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + latitude + ',' + longitude + '&key=AIzaSyB-xXKsLmwxC6-pPESRf3hZXzFrD2wHIzk')
         .then((response) => response.json())
         .then((responseJson) => {
-            console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
 
-           if(responseJson.results[0]){
+          console.log('ADDRESS GEOCODE is BACK!! => ' , responseJson);
+
+           if(responseJson.results[0].address_components[3]){
+            console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson.results[0]));
             if(responseJson.results[0].address_components){
 
               const location2 = responseJson.results[0].address_components[3].long_name ;
 
-              if(location2 == 'Karachi City' || location2 == 'Karachi' ){
+              
+
+              if(location2.includes("Karachi") || location2 == 'Karachi City' || location2 == 'Karachi' ){
+                console.log("iunder karacahi if ")
                 this.get_all_stop_call('Karachi')
               }
 
-              else if(location2 == 'Hyderabad City' || location2 == 'Hyderabad'){
+              else if(location2.includes("Hyderabad") || location2 == 'Hyderabad City' || location2 == 'Hyderabad'){
+                console.log("iunder Hyderabad if ")
                 this.get_all_stop_call('Hyderabad')
               }
               else{
+                console.log("iunder karacahi else ")
                 this.get_all_stop_call('Karachi')
               }
 
@@ -101,7 +108,9 @@ export default class currentloc extends React.Component {
               this.setState({
                 fetching:false
               })
-              this.get_all_stop_call('Karachi')
+              alert("Unable to fetch your location. Please try again after some time!")
+              this.props.navigation.navigate('LOGIN')
+              
            }
 
             // const location1 = responseJson.results[0].address_components[4] ;
@@ -148,7 +157,7 @@ export default class currentloc extends React.Component {
 
       async _getStorageValue(){
         var USERNAME = await AsyncStorage.getItem('UN')
-        console.log("username" , USERNAME)
+        console.log("username on home" , USERNAME)
         this.setState({
           uname : USERNAME
         })
@@ -173,8 +182,8 @@ export default class currentloc extends React.Component {
         }
         else{
           this.timeoutHandle = setTimeout(()=>{
-            console.log("after 5 seconds")
-            this.getcurrentLocation(this.state.latitude, this.state.longitude)
+            console.log("after 5 seconds emoty llocation")
+            this.getcurrentLocation(24.8607, 67.0011)
        }, 5000);
         }
       
@@ -240,7 +249,7 @@ export default class currentloc extends React.Component {
         try{
           
 
-          let response = await fetch(`https://hitsofficialpk.com/sitgo/stops/all?city=${destination}&language=${this.state.lang}`) 
+          let response = await fetch( baseurl.uatbaseurl +`stops/all?city=${destination}&language=${this.state.lang}`) 
 
           const completeresponse =  await response.json()
           var markers = [];
@@ -404,8 +413,8 @@ export default class currentloc extends React.Component {
                                                          initialRegion={{
                                                            latitude ,
                                                            longitude ,
-                                                           latitudeDelta: 0.99,
-                                                           longitudeDelta: 0.99,
+                                                           latitudeDelta: 0.098,
+                                                           longitudeDelta: 0.098,
                                                          }}
                                                        >
                                         

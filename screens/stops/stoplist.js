@@ -203,7 +203,7 @@ export default class stoplist extends React.Component {
         try{
           
 
-          let response = await fetch(`https://sitgoride.com/admin/stops/all?city=Karachi&language=${this.state.lang}`) 
+          let response = await fetch( baseurl.uatbaseurl + `stops/all?city=Karachi&language=${this.state.lang}`) 
 
           const completeresponse =  await response.json()
           var markers = [];
@@ -256,7 +256,7 @@ export default class stoplist extends React.Component {
         try{
           
 
-          let response = await fetch(`https://sitgoride.com/admin/stops/all?city=Hyderabad&language=${this.state.lang}` ) 
+          let response = await fetch(baseurl.uatbaseurl + `stops/all?city=Hyderabad&language=${this.state.lang}` ) 
 
           const completeresponse =  await response.json()
           var markers = [];

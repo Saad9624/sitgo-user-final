@@ -116,6 +116,107 @@ class FloatingLabelInput extends Component {
     );
   }
 }
+class FloatingLabelInput1 extends Component {
+  state = {
+    isFocused: false,
+    fontLoaded: false,
+    lang:''  ,
+    pushtoken:''
+  };
+
+  componentWillMount() {
+    this._animatedIsFocused = new Animated.Value(this.props.value === '' ? 0 : 1);
+
+    this.getLanguage()
+  }
+
+   async componentDidMount() {
+        await Font.loadAsync({
+          'opreg': require('./../assets/fonts/opreg.ttf'),
+        });
+    
+        this.setState({ fontLoaded: true });
+      }
+
+  handleFocus = () => this.setState({ isFocused: true });
+  handleBlur = () => this.setState({ isFocused: false });
+
+  componentDidUpdate() {
+    Animated.timing(this._animatedIsFocused, {
+      toValue: (this.state.isFocused || this.props.value !== '') ? 1 : 0,
+      duration: 200,
+    }).start();
+  }
+
+
+  async getLanguage(){
+    i18n.fallbacks = true;
+    i18n.translations = {
+      en, ur
+    };
+    
+    const language = await AsyncStorage.getItem('LANG')
+
+    this.setState({
+        lang: language
+    })
+
+    if(language == null){
+        this.setState({
+            lang : 'en'
+        })
+    }
+    else{
+        this.setState({
+            lang : language
+        })
+    }
+    console.log("languafe" , this.state.lang)
+    
+    i18n.locale = this.state.lang; 
+
+    console.log("i8ln" , i18n.locale)
+
+   }
+
+  render() {
+    const { label, ...props } = this.props;
+    const labelStyle = {
+      fontFamily:'opreg' ,
+      position: 'absolute',
+      color:'grey' , 
+      left: 0,
+      top: this._animatedIsFocused.interpolate({
+        inputRange: [0, 1],
+        outputRange: [18, 0],
+      }),
+      fontSize: this._animatedIsFocused.interpolate({
+        inputRange: [0, 1],
+        outputRange: [20, 14],
+      }),
+      color: this._animatedIsFocused.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['#808080', '#000'],
+      }),
+    };
+    return (
+      <View style={{ paddingTop: 18 }}>
+     {this.state.fontLoaded ? (     <Animated.Text style={labelStyle}>
+          {label}
+        </Animated.Text>) : null }
+
+
+    {this.state.fontLoaded ? (     <TextInput
+          {...props}
+          style={{ width:'100%' ,  height: 26, fontSize: 20, color: '#000',fontFamily:'opreg' }}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          blurOnSubmit
+        /> ) : null }
+      </View>
+    );
+  }
+}
 
 export default class signup extends Component {
   
@@ -142,7 +243,7 @@ export default class signup extends Component {
     });
 
     this.setState({ fontLoaded: true });
-    await this.registerForPushNotificationsAsync()
+    //await this.registerForPushNotificationsAsync()
   }
 
   handleTextChange = (newText) => this.setState({ fname: newText });
@@ -380,20 +481,20 @@ sendPushNotificaiton = () => {
 
                             <View style={{marginTop:30}}>
 
-                                     <FloatingLabelInput
+                                     <FloatingLabelInput1
                                               style={{width:'100%',paddingRight:100}}
                                             label={i18n.t('email')}
                                             value={this.state.email}
                                             onChangeText={this.handleemail}
                                             />
 
-                                              {/* <View
+                                              <View
                                                 style={{
                                                   padding:2 ,
                                                     borderBottomColor: 'black',
                                                     borderBottomWidth: 1,
                                                 }}
-                                                /> */}
+                                                />
 
 
                             </View>
